@@ -104,7 +104,7 @@ class SecondViewController: UIViewController {
     
     
     
-    //text field of yes or no for purchase
+    //text field of yes or no for purchase yesy
     
     @IBOutlet weak var decisionText: UILabel!
     var ok = "In the clear"

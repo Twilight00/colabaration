@@ -111,17 +111,29 @@ class SecondViewController: UIViewController {
     var nope = "Don't you dare"
     
     // yes and no would allow for the purchase to be confirmed and would disable the purchase before the confirmation of a refund would be made
-    @IBAction func yes(_ sender: AnyObject) {
+   /* @IBAction func yes(_ sender: AnyObject) {
     }
     
     @IBAction func no(_ sender: AnyObject) {
-    }
+    }*/
     // allows for the button to be called for when wanted to hide later
     @IBOutlet weak var yesProperties: UIButton!
     
+    @IBAction func yestrue(_ sender: AnyObject) {
+        override = true
+        
+        //Subtotal()
+    }
+    
     @IBOutlet weak var noProperties: UIButton!
     
-    
+    @IBAction func noFalse(_ sender: AnyObject) {
+        override = false
+        
+        //Subtotal()
+        
+    }
+
     
     
     
@@ -129,24 +141,53 @@ class SecondViewController: UIViewController {
     //purchase button to add the rest to the tally and reset the stepper and text values
     //claculates :subtotal button
     
+func negativeCheck() -> Bool
 
-    @IBAction func Subtotal(_ sender: UILabel) {
-        
-        functionDisplay.text = calculatorreturn().description
-        
-      /*  if(StoredValues.currentChildCount == 0 && StoredValues.childStepperCount<0 ){
-            StoredValues.totalChildCount != 0 && StoredValues.TotMones != 0
-        }*/
-      
-        switch StoredValues.childStepperCount{
-        case _ where StoredValues.childStepperCount < 0 :
-            print(decisionText.text = nope)
+    {
+          /*   switch valueCount{
+        case _ where valueCount < 0 :
+            print(decisionText.text = nope); subTrue(); subFalse()
             
         default:
             print(decisionText.text = ok)
             
+                
+        }*/
+        
+
+        
+        var Bo: Bool = true
+        for (name,val) in valueCount
+        {
+            if (val < 0){Bo = false}
         }
         
+        
+        return Bo
+        
+    }
+    
+    var override: Bool!
+    
+    @IBAction func Subtotal(_ sender: UILabel) {
+        if (override == nil)
+        {
+            if (negativeCheck())
+            {
+                subQuestion(); decisionText.text = nope;
+                return
+            }
+            
+        }
+        else if (override != false)
+        {
+        functionDisplay.text = calculatorreturn().description
+        
+       /* if(StoredValues.currentChildCount == 0 && StoredValues.childStepperCount == 0 ){
+            StoredValues.totalChildCount < 0 && StoredValues.TotMones < 0
+        } else if (StoredValues.totalChildCount < 0 && StoredValues .TotMones < 0){StoredValues.TotMones != 0 && StoredValues.totalChildCount > 0}*/
+      
+   
         
         StoredValues.childStepperCount = Double(valueLabel.text!)!
         
@@ -162,7 +203,8 @@ class SecondViewController: UIViewController {
         StoredValues.currentadultsCount = StoredValues.currentadultsCount + Double(AdultCount.text!)!
         
         StoredValues.currentseniorwCard = StoredValues.currentseniorwCard + Double(SeniorCounter.text!)!
- 
+            
+        }
         
         valueLabel.text = "0"
         stepper.value=0
@@ -196,6 +238,8 @@ class SecondViewController: UIViewController {
         
         
         subFalse()
+        override = nil
+        
     }
     
     
@@ -310,6 +354,15 @@ class SecondViewController: UIViewController {
         PurchaseOut.isHidden = false
         PurchaseOut.isEnabled = true
     }
+    func subQuestion()
+    {
+        SubtotalOut.isEnabled = false
+        
+        CancelOut.isEnabled = false
+        
+        PurchaseOut.isEnabled = false
+    }
+    
     func subtotalReset()
     {
         StoredValues.subtotal = 0
